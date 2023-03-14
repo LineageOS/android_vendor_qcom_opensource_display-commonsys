@@ -71,7 +71,7 @@
 namespace DisplayConfig {
 
 int ClientImpl::Init(std::string client_name, ConfigCallback *callback) {
-  display_config_ = IDisplayConfig::getService();
+  display_config_ = IDisplayConfig::tryGetService();
   // Unable to find Display Config 2.0 service. Fail Init.
   if (!display_config_) {
     return -1;
