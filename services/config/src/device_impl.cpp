@@ -30,7 +30,7 @@
 /*
  * Changes from Qualcomm Innovation Center are provided under the following license:
  *
- * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+ * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -82,13 +82,13 @@ int DeviceImpl::CreateInstance(ClientContext *intf) {
       return -1;
     }
 
+    device_obj_->intf_ = intf;
     android::status_t status = device_obj_->IDisplayConfig::registerAsService();
     // Unable to start Display Config 2.0 service. Fail Init.
     if (status != android::OK) {
       device_obj_ = nullptr;
       return -1;
     }
-    device_obj_->intf_ = intf;
   }
 
   return 0;
