@@ -1179,6 +1179,42 @@ void DeviceImpl::DeviceClientContext::ParseSetWiderModePreference(const ByteStre
   _hidl_cb(error, {}, {});
 }
 
+void DeviceImpl::DeviceClientContext::ParseTunnellingInit(perform_cb _hidl_cb) {
+  int32_t error = intf_->tunnellingInit();
+  _hidl_cb(error, {}, {});
+}
+
+void DeviceImpl::DeviceClientContext::ParsequeueTunnelledBuffer(uint64_t clientHandle,
+                                                                const ByteStream &input_params,
+                                                                const HandleStream &input_handles,
+                                                                perform_cb _hidl_cb) {
+  const uint8_t *data = input_params.data();
+  const native_handle fence = reinterpret_cast<const native_handle&>(data);
+  const hidl_handle buffer = input_handles[0];
+
+  int32_t error = intf_->queueTunnelledBuffer(buffer.getNativeHandle(), &fence);
+
+  _hidl_cb(error, {}, {});
+}
+
+void DeviceImpl::DeviceClientContext::ParsedequeueTunnelledBuffer(uint64_t clientHandle,
+                                                                  const ByteStream &input_params,
+                                                                  const HandleStream &input_handles,
+                                                                  perform_cb _hidl_cb) {
+  const uint8_t *data = input_params.data();
+  const native_handle fence = reinterpret_cast<const native_handle&>(data);
+  const hidl_handle buffer = input_handles[0];
+
+  int32_t error = intf_->dequeueTunnelledBuffer(buffer.getNativeHandle(), &fence);
+
+  _hidl_cb(error, {}, {});
+}
+
+void DeviceImpl::DeviceClientContext::ParsetunnellingDeinit(perform_cb _hidl_cb) {
+  int32_t error = intf_->tunnellingDeinit();
+  _hidl_cb(error, {}, {});
+}
+
 Return<void> DeviceImpl::perform(uint64_t client_handle, uint32_t op_code,
                                  const ByteStream &input_params, const HandleStream &input_handles,
                                  perform_cb _hidl_cb) {
@@ -1373,6 +1409,18 @@ Return<void> DeviceImpl::perform(uint64_t client_handle, uint32_t op_code,
       break;
     case kSetWiderModePref:
       client->ParseSetWiderModePreference(input_params, _hidl_cb);
+      break;
+    case kTunnellingInit:
+      client->ParseTunnellingInit(_hidl_cb);
+      break;
+    case kQueueTunneledBuffer:
+      client->ParsequeueTunnelledBuffer(client_handle, input_params, input_handles, _hidl_cb);
+      break;
+    case kDequeueTunneledBuffer:
+      client->ParsedequeueTunnelledBuffer(client_handle, input_params,input_handles, _hidl_cb);
+      break;
+    case kTunnellingDeinit :
+      client->ParsetunnellingDeinit(_hidl_cb);
       break;
     case kDummyOpcode:
       _hidl_cb(-EINVAL, {}, {});
