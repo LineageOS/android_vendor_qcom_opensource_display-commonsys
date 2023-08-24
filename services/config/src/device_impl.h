@@ -30,7 +30,7 @@
 /*
  * Changes from Qualcomm Innovation Center are provided under the following license:
  *
- * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+ * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -170,7 +170,12 @@ class DeviceImpl : public IDisplayConfig, public android::hardware::hidl_death_r
     void ParseSetPowerModeTiled(const ByteStream &input_params, perform_cb _hidl_cb);
     void ParseSetPanelBrightnessTiled(const ByteStream &input_params, perform_cb _hidl_cb);
     void ParseSetWiderModePreference(const ByteStream &input_params, perform_cb _hidl_cb);
-
+    void ParseTunnellingInit(perform_cb _hidl_cb);
+    void ParsequeueTunnelledBuffer(uint64_t clientHandle, const ByteStream &input_params,
+                                   const HandleStream &input_handles, perform_cb _hidl_cb);
+    void ParsedequeueTunnelledBuffer(uint64_t clientHandle, const ByteStream &input_params,
+                                     const HandleStream &input_handles, perform_cb _hidl_cb);
+    void ParsetunnellingDeinit(perform_cb _hidl_cb);
    private:
     ConfigInterface *intf_ = nullptr;
     const sp<IDisplayConfigCallback> callback_;
