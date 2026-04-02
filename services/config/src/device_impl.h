@@ -74,6 +74,7 @@
 #include <utility>
 #include <string>
 #include <vector>
+#include <mutex>
 
 #include "opcode_types.h"
 
