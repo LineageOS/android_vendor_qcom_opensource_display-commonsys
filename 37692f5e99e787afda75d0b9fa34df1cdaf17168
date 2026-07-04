@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc148b66_9aab0674",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2026-07-04T15:27:22Z",
+      "side": 1,
+      "message": "See comment in https://review.lineageos.org/c/LineageOS/android_vendor_qcom_opensource_display-commonsys-intf/+/492670",
+      "revId": "37692f5e99e787afda75d0b9fa34df1cdaf17168",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
